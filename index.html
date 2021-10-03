@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Tip calculator app</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+  <div class="logo-container"><img src="images/logo.svg"></div>
+  <div class="tip-calculator">
+    <div class="tip-input">
+      <div class="form-elements">
+        <h6 class="input-label">Bill</h6>
+        <i class="fa fa-dollar"></i><input id="total-bill" class="user-text user-input" type="text"></input>
+      </div>
+      <h6 class="input-label">Select Tip %</h6>
+      <div class="form-elements">
+        <ul class="tip-percentage">
+          <li class="radio-percent"><input type="radio" name="percentage"><label onclick="selectedPercent(5)">5%</label></li>
+          <li class="radio-percent"><input type="radio" name="percentage"><label onclick="selectedPercent(10)">10%</label></li>
+          <li class="radio-percent"><input type="radio" name="percentage"><label onclick="selectedPercent(15)">15%</label></li>
+          <li class="radio-percent"><input type="radio" name="percentage"><label onclick="selectedPercent(25)">25%</label></li>
+          <li class="radio-percent"><input type="radio" name="percentage"><label onclick="selectedPercent(50)">50%</label></li>
+          <li class="type-percent"><input type="text" onkeyup="enteredPercent()" id="percent-input" name="percentage" class="user-input"></li>
+        </ul>
+      </div>
+      <div class="form-elements">
+        <h6 class="input-label">Number of People</h6>
+        <i class="fa fa-user"></i><input id="total-users" class="user-text user-input" type="text"></input>
+      </div>
+    </div>
+    <div class="tip-output">
+      <div class="output-table">
+        <table>
+          <tr>
+            <td><h5>Tip Amount</h5><span>/ person</span></td>
+            <td id="tip-percent-display">$0.00</td>
+          </tr>
+          <tr>
+            <td><h5>Total</h5><span>/ person</span></td>
+            <td id="total-per-person-display">$0.00</td>
+          </tr>
+        </table>
+        <div><button id="reset-button">RESET</button></div>
+      </div>
+    </div>
+  </div>
+  <!--Bill
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>-->
+  <script>
+    let percent = 0;
+    let bill = 0;
+    let users = 0;
+
+    function selectedPercent(num) {
+      percent = num
+    }
+
+    function enteredPercent(num) {
+      percent = document.getElementById('percent-input').value
+    }
+
+    document.getElementById('total-users').addEventListener('keyup', () => {
+      bill = parseInt(document.getElementById('total-bill').value);
+      users = parseInt(document.getElementById('total-users').value);
+      let tipAmount = (percent * bill) / 100
+      let totalPerPerson = (tipAmount + bill) / users
+      document.getElementById('tip-percent-display').textContent = '$' + Math.round(tipAmount)
+      document.getElementById('total-per-person-display').textContent = '$' + Math.round(totalPerPerson)
+    })
+
+    function reset() {
+      percent = 0;
+      bill = 0;
+      users = 0;
+      document.getElementById('percent-input').value = ''
+      document.getElementById('total-bill').value = ''
+      document.getElementById('total-users').value = ''
+      document.getElementById('tip-percent-display').textContent = '$ 0.00'
+      document.getElementById('total-per-person-display').textContent = '$ 0.00'
+    }
+  </script>
+</body>
+</html>
